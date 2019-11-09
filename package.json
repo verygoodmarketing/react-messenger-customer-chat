@@ -10,7 +10,6 @@
   "scripts": {
     "build": "npm run clean && babel src -d lib --ignore __tests__",
     "clean": "rimraf lib",
-    "precommit": "lint-staged",
     "lint": "eslint bin src example",
     "lint:fix": "npm run lint -- --fix",
     "lint:staged": "lint-staged",
