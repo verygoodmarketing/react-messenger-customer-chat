@@ -108,6 +108,7 @@ export default class MessengerCustomerChat extends Component {
       js.id = id;
       js.src = `https://connect.facebook.net/${language}/sdk/xfbml.customerchat.js`;
       js.defer = true;
+      js.async = true;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
     /* eslint-enable */
