@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 const removeElementByIds = ids => {
   ids.forEach(id => {
@@ -21,14 +21,14 @@ export default class MessengerCustomerChat extends Component {
     themeColor: PropTypes.string,
     loggedInGreeting: PropTypes.string,
     loggedOutGreeting: PropTypes.string,
-    greetingDialogDisplay: PropTypes.oneOf(['show', 'hide', 'fade']),
+    greetingDialogDisplay: PropTypes.oneOf(["show", "hide", "fade"]),
     greetingDialogDelay: PropTypes.number,
     autoLogAppEvents: PropTypes.bool,
     xfbml: PropTypes.bool,
     version: PropTypes.string,
     language: PropTypes.string,
     onCustomerChatDialogShow: PropTypes.func,
-    onCustomerChatDialogHide: PropTypes.func,
+    onCustomerChatDialogHide: PropTypes.func
   };
 
   static defaultProps = {
@@ -42,15 +42,15 @@ export default class MessengerCustomerChat extends Component {
     greetingDialogDelay: undefined,
     autoLogAppEvents: true,
     xfbml: true,
-    version: '2.11',
-    language: 'en_US',
+    version: "2.11",
+    language: "en_US",
     onCustomerChatDialogShow: undefined,
-    onCustomerChatDialogHide: undefined,
+    onCustomerChatDialogHide: undefined
   };
 
   state = {
     fbLoaded: false,
-    shouldShowDialog: undefined,
+    shouldShowDialog: undefined
   };
 
   componentDidMount() {
@@ -58,7 +58,7 @@ export default class MessengerCustomerChat extends Component {
     this.reloadSDKAsynchronously();
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate = prevProps => {
     if (
       prevProps.pageId !== this.props.pageId ||
       prevProps.appId !== this.props.appId ||
@@ -78,9 +78,9 @@ export default class MessengerCustomerChat extends Component {
       this.setFbAsyncInit();
       this.reloadSDKAsynchronously();
     }
-  }
+  };
 
-  setFbAsyncInit() {
+  setFbAsyncInit = () => {
     const { appId, autoLogAppEvents, xfbml, version } = this.props;
 
     window.fbAsyncInit = () => {
@@ -88,14 +88,14 @@ export default class MessengerCustomerChat extends Component {
         appId,
         autoLogAppEvents,
         xfbml,
-        version: `v${version}`,
+        version: `v${version}`
       });
 
       this.setState({ fbLoaded: true });
     };
-  }
+  };
 
-  loadSDKAsynchronously() {
+  loadSDKAsynchronously = () => {
     const { language } = this.props;
     /* eslint-disable */
     (function(d, s, id) {
@@ -107,23 +107,23 @@ export default class MessengerCustomerChat extends Component {
       js = d.createElement(s);
       js.id = id;
       js.src = `https://connect.facebook.net/${language}/sdk/xfbml.customerchat.js`;
+      js.defer = true;
       fjs.parentNode.insertBefore(js, fjs);
-    })(document, 'script', 'facebook-jssdk');
+    })(document, "script", "facebook-jssdk");
     /* eslint-enable */
-  }
+  };
 
-  removeFacebookSDK() {
-    removeElementByIds(['facebook-jssdk', 'fb-root']);
-
+  removeFacebookSDK = () => {
+    removeElementByIds(["facebook-jssdk", "fb-root"]);
     delete window.FB;
-  }
+  };
 
-  reloadSDKAsynchronously() {
+  reloadSDKAsynchronously = () => {
     this.removeFacebookSDK();
     this.loadSDKAsynchronously();
-  }
+  };
 
-  controlPlugin() {
+  controlPlugin = () => {
     const { shouldShowDialog } = this.props;
 
     if (shouldShowDialog) {
@@ -131,25 +131,25 @@ export default class MessengerCustomerChat extends Component {
     } else {
       window.FB.CustomerChat.hideDialog();
     }
-  }
+  };
 
-  subscribeEvents() {
+  subscribeEvents = () => {
     const { onCustomerChatDialogShow, onCustomerChatDialogHide } = this.props;
 
     if (onCustomerChatDialogShow) {
       window.FB.Event.subscribe(
-        'customerchat.dialogShow',
+        "customerchat.dialogShow",
         onCustomerChatDialogShow
       );
     }
 
     if (onCustomerChatDialogHide) {
       window.FB.Event.subscribe(
-        'customerchat.dialogHide',
+        "customerchat.dialogHide",
         onCustomerChatDialogHide
       );
     }
-  }
+  };
 
   createMarkup() {
     const {
@@ -160,30 +160,30 @@ export default class MessengerCustomerChat extends Component {
       loggedInGreeting,
       loggedOutGreeting,
       greetingDialogDisplay,
-      greetingDialogDelay,
+      greetingDialogDelay
     } = this.props;
 
-    const refAttribute = htmlRef !== undefined ? `ref="${htmlRef}"` : '';
+    const refAttribute = htmlRef !== undefined ? `ref="${htmlRef}"` : "";
     const minimizedAttribute =
-      minimized !== undefined ? `minimized="${minimized}"` : '';
+      minimized !== undefined ? `minimized="${minimized}"` : "";
     const themeColorAttribute =
-      themeColor !== undefined ? `theme_color="${themeColor}"` : '';
+      themeColor !== undefined ? `theme_color="${themeColor}"` : "";
     const loggedInGreetingAttribute =
       loggedInGreeting !== undefined
         ? `logged_in_greeting="${loggedInGreeting}"`
-        : '';
+        : "";
     const loggedOutGreetingAttribute =
       loggedOutGreeting !== undefined
         ? `logged_out_greeting="${loggedOutGreeting}"`
-        : '';
+        : "";
     const greetingDialogDisplayAttribute =
       greetingDialogDisplay !== undefined
         ? `greeting_dialog_display="${greetingDialogDisplay}"`
-        : '';
+        : "";
     const greetingDialogDelayAttribute =
       greetingDialogDelay !== undefined
         ? `greeting_dialog_delay="${greetingDialogDelay}"`
-        : '';
+        : "";
 
     return {
       __html: `<div
@@ -196,7 +196,7 @@ export default class MessengerCustomerChat extends Component {
         ${loggedOutGreetingAttribute}
         ${greetingDialogDisplayAttribute}
         ${greetingDialogDelayAttribute}
-      ></div>`,
+      ></div>`
     };
   }
 
@@ -205,13 +205,13 @@ export default class MessengerCustomerChat extends Component {
 
     if (fbLoaded && shouldShowDialog !== this.props.shouldShowDialog) {
       document.addEventListener(
-        'DOMNodeInserted',
+        "DOMNodeInserted",
         event => {
           const element = event.target;
           if (
             element.className &&
-            typeof element.className === 'string' &&
-            element.className.includes('fb_dialog')
+            typeof element.className === "string" &&
+            element.className.includes("fb_dialog")
           ) {
             this.controlPlugin();
           }
