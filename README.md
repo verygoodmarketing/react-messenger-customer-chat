@@ -2,10 +2,6 @@
 
 > React component for [Messenger customer chat plugin](https://developers.facebook.com/docs/messenger-platform/discovery/customer-chat-plugin)
 
-[![npm](https://img.shields.io/npm/v/react-messenger-customer-chat.svg)](https://www.npmjs.com/package/react-messenger-customer-chat)
-[![Build Status](https://travis-ci.org/Yoctol/react-messenger-customer-chat.svg?branch=master)](https://travis-ci.org/Yoctol/react-messenger-customer-chat)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-
 ## Screenshot
 
 ![](https://user-images.githubusercontent.com/3382565/33435564-6ed7df66-d61d-11e7-8b6c-fdb2d36f0ff9.png)
@@ -31,10 +27,10 @@ npm install react-messenger-customer-chat
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MessengerCustomerChat from 'react-messenger-customer-chat';
+import MessengerChat from 'react-messenger-chat';
 
 ReactDOM.render(
-  <MessengerCustomerChat
+  <MessengerChat
     pageId="<PAGE_ID>"
     appId="<APP_ID>"
     htmlRef="<REF_STRING>"
@@ -99,4 +95,4 @@ static defaultProps = {
 
 ## License
 
-MIT © [Yoctol](https://github.com/Yoctol/react-messenger-customer-chat)
+MIT
