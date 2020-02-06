@@ -27,7 +27,7 @@ npm install react-messenger-customer-chat
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-import MessengerChat from 'react-messenger-chat';
+import MessengerCustomerChat from 'react-messenger-customer-chat';
 
 ReactDOM.render(
   <MessengerChat
