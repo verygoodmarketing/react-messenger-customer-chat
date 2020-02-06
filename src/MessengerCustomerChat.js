@@ -42,7 +42,7 @@ export default class MessengerCustomerChat extends Component {
     greetingDialogDelay: undefined,
     autoLogAppEvents: true,
     xfbml: true,
-    version: "2.11",
+    version: "6.0",
     language: "en_US",
     onCustomerChatDialogShow: undefined,
     onCustomerChatDialogHide: undefined
@@ -81,12 +81,10 @@ export default class MessengerCustomerChat extends Component {
   };
 
   setFbAsyncInit = () => {
-    const { appId, autoLogAppEvents, xfbml, version } = this.props;
+    const { xfbml, version } = this.props;
 
     window.fbAsyncInit = () => {
       window.FB.init({
-        appId,
-        autoLogAppEvents,
         xfbml,
         version: `v${version}`
       });
@@ -99,16 +97,11 @@ export default class MessengerCustomerChat extends Component {
     const { language } = this.props;
     /* eslint-disable */
     (function(d, s, id) {
-      var js,
-        fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
       js = d.createElement(s);
       js.id = id;
       js.src = `https://connect.facebook.net/${language}/sdk/xfbml.customerchat.js`;
-      js.defer = true;
-      js.async = true;
       fjs.parentNode.insertBefore(js, fjs);
     })(document, "script", "facebook-jssdk");
     /* eslint-enable */
